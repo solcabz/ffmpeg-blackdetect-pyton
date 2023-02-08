@@ -68,7 +68,7 @@ for root, dirs, files in os.walk(directory):
             full_file = full_file.replace(" " , "\ ")
             path = os.path.dirname(full_file)
             logfile = os.path.join(path, str(full_file[:-4]+"_FFMPEGLOG.txt"))
-            subprocess.call('ffmpeg -i '+full_file+' -vf blackdetect=d=2:pic_th=0.97:pix_th=0.1 -an -f null - 2>'+logfile, shell=True)
+            subprocess.call('ffmpeg -i '+full_file+' -vf blackdetect=d=0.01:pix_th=0.1 -an -f null - 2>'+logfile, shell=True)
             logfile = logfile.replace("\ ", " ")
             with open(logfile, 'r') as log_file:
                 (hh, mm, ss, ff, rate) = starttc(log_file)
@@ -89,7 +89,7 @@ for root, dirs, files in os.walk(directory):
                 for i in range(len(black_starts)):
                     hh = int(hh)
                     mm = int(mm)
-                    ss = int(ss)
+                    ss = float(ss)
                     ff = int(ff)
                     (newhh, newmm, newss, newff) = tccalculations(black_starts[i], hh, mm, ss, ff)
                     if newff >= 24:
