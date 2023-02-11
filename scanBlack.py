@@ -65,39 +65,61 @@ for root, dirs, files in os.walk(directory):
     for file in files:
         if file.endswith(".mp4"):
             full_file = str(os.path.join(root, file))
-            full_file = full_file.replace(" " , "\ ")
+            full_file = full_file.replace(" " , " \ ")
             path = os.path.dirname(full_file)
             logfile = os.path.join(path, str(full_file[:-4]+"_FFMPEGLOG.txt"))
-            subprocess.call('ffmpeg -i '+full_file+' -vf blackdetect=d=00.00:pix_th=0.01 -an -f null - 2>'+logfile, shell=True)
+            subprocess.call('ffmpeg -i '+full_file+' -vf blackdetect=d=00.001:pix_th=0.01 -an -f null - 2>'+logfile, shell=True)
             logfile = logfile.replace("\ ", " ")
             with open(logfile, 'r') as log_file:
                 (hh, mm, ss, ff, rate) = starttc(log_file)
-            #     if hh == () and mm == () and ss == () and ff == ():
-            #         if AllMOVTCs == 'n':
-            #             print("No Timecode in metadata.\n")
-            #            # userTC = input("Enter the start timecode of the mp4 file excluding colons (hh:mm:ss:ff) \n")
-            #            # print("You entered "+userTC+" \n")
-            #            # AllMOVTCs = input("Will this be the start TC for all MP4 files? [y/n]")
-            #             print('User Entered Start TimeCode is '+MOVTC)
-            #     else:
-            #         MOVTC = str(hh)+':'+str(mm)+':'+str(ss)+':'+str(ff)
-            #         print('Start TimeCode is ' + MOVTC)
-            #     print('The frame rate is '+str(rate))
-            #     log_file.seek(0)
-            #     (black_starts) = getblackstarts(log_file)
-            #     blacktc = []
-            #     for i in range(len(black_starts)):
-            #         hh = int(hh)
-            #         mm = int(mm)
-            #         ss = int(ss)
-            #         ff = int(ff)
-            #         (newhh, newmm, newss, newff) = tccalculations(black_starts[i], hh, mm, ss, ff)
-            #         if newff >= 24:
-            #             newss = newss+1
-            #             newff = newff-24
-            #         if newss >= 60:
-            #             newmm = newmm+1
-            #             newss = newss-60
+            #      if hh == () and mm == () and ss == () and ff == ():
+            #          # if AllMOVTCs == 'n':
+            #              print("No Timecode in metadata.\n")
+            #             # userTC = input("Enter the start timecode of the mp4 file excluding colons (hh:mm:ss:ff) \n")
+            #             # print("You entered "+userTC+" \n")
+            #             # AllMOVTCs = input("Will this be the start TC for all MP4 files? [y/n]")
+            #              print('User Entered Start TimeCode is '+MOVTC)
+            #      else:
+            #          MOVTC = str(hh)+':'+str(mm)+':'+str(ss)+':'+str(ff)
+            #          print('Start TimeCode is ' + MOVTC)
+            #      print('The frame rate is '+str(rate))
+            #      log_file.seek(0)
+            #      (black_starts) = getblackstarts(log_file)
+            #      blacktc = []
+            #      for i in range(len(black_starts)):
+            #          hh = int(hh)
+            #          mm = int(mm)
+            #          ss = int(ss)
+            #          ff = int(ff)
+            #          (newhh, newmm, newss, newff) = tccalculations(black_starts[i], hh, mm, ss, ff)
+            #          if newff >= 24:
+            #              newss = newss+1
+            #              newff = newff-24
+            #          if newss >= 60:
+            #              newmm = newmm+1
+            #              newss = newss-60
+            #          if newmm >= 120:
+            #              newhh = newhh+1
+            #              newmm = newmm-120
+            #          elif newmm >= 60:
+            #              newhh = newhh+1
+            #              newmm = newmm-60
+            #          (blackhh, blackmm, blackss, blackff) = timecode(newhh, newmm, newss, newff)
+            #          blacktc.append(str(blackhh)+':'+str(blackmm)+':'+str(blackss)+':'+str(blackff))
+            # (black_ends) = getblackends(log_file)
+            #      blacktc = []
+            #      for i in range(len(black_ends)):
+            #          hh = int(hh)
+            #          mm = int(mm)
+            #          ss = int(ss)
+            #          ff = int(ff)
+            #          (newhh, newmm, newss, newff) = tccalculations(getblackends[i], hh, mm, ss, ff)
+            #          if newff >= 24:
+            #              newss = newss+1
+            #              newff = newff-24
+            #          if newss >= 60:
+            #              newmm = newmm+1
+            #              newss = newss-60
             #         if newmm >= 120:
             #             newhh = newhh+1
             #             newmm = newmm-120
