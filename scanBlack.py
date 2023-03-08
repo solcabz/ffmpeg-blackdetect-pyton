@@ -72,23 +72,18 @@ for root, dirs, files in os.walk(directory):
             logfile = logfile.replace("\ ", " ")
             with open(logfile, 'r') as log_file:
                 (hh, mm, ss, ff, rate) = starttc(log_file)
-                if hh == () and mm == () and ss == () and ff == ():
-                    if AllMOVTCs == 'n':
-                        print("No Timecode in metadata.\n")
-                        userTC = input("Enter the start timecode of the movie file excluding colons (hhmmssff)\n")
-                        print("You entered " + userTC + "\n")
-                        AllMOVTCs = input("Will this be the start TC for all MOV files? [y/n]")
-                        MOVTC = userTC[0:2] + ":" + userTC[2:4] + ":" + userTC[4:6] + ":" + userTC[6:]
-                        print('User Entered Start TimeCode is ' + MOVTC)
-                        hh = int(userTC[0:2])
-                        mm = int(userTC[2:4])
-                        ss = int(userTC[4:6])
-                        ff = int(userTC[6:])
-                    else:
-                        hh = int(userTC[0:2])
-                        mm = int(userTC[2:4])
-                        ss = int(userTC[4:6])
-                        ff = int(userTC[6:])
+                # if hh == () and mm == () and ss == () and ff == ():
+                if AllMOVTCs == 'n':
+                    print("No Timecode in metadata.\n")
+                    userTC = ('0000000000')
+                    print("You entered " + userTC + "\n")
+                    AllMOVTCs = ('y')
+                    MOVTC = userTC[0:2] + ":" + userTC[2:4] + ":" + userTC[4:6] + ":" + userTC[6:]
+                    print('User Entered Start TimeCode is ' + MOVTC)
+                    hh = int(userTC[0:2])
+                    mm = int(userTC[2:4])
+                    ss = int(userTC[4:6])
+                    ff = int(userTC[6:])
                 else:
                     MOVTC = str(hh) + ':' + str(mm) + ':' + str(ss) + ':' + str(ff)
                     print('Start TimeCode is ' + MOVTC)
